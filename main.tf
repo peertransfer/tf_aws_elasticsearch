@@ -41,8 +41,9 @@ resource "aws_elasticsearch_domain" "es" {
     zone_awareness_enabled   = "${var.es_zone_awareness}"
   }
 
-  # advanced_options {
-  # }
+   advanced_options {
+    rest.action.multi.allow_explicit_index = "${var.adv_opt_multi_allow_explicit_index > 0 ? true : false}"
+   }
 
   ebs_options {
     ebs_enabled = "${var.ebs_volume_size > 0 ? true : false}"
@@ -51,6 +52,10 @@ resource "aws_elasticsearch_domain" "es" {
   }
   snapshot_options {
     automated_snapshot_start_hour = "${var.snapshot_start_hour}"
+  }
+
+  encrypt_at_rest       = {
+    enabled = "${var.encrypt_at_rest}"
   }
   tags = "${merge(var.tags, map(
     "Domain", "${var.domain_name}"
@@ -63,5 +68,5 @@ resource "aws_elasticsearch_domain_policy" "es_management_access" {
   access_policies = "${data.aws_iam_policy_document.es_management_access.json}"
 }
 
-# vim: set et fenc= ff=unix ft=terraform sts=2 sw=2 ts=2 : 
+# vim: set et fenc= ff=unix ft=terraform sts=2 sw=2 ts=2 :
 

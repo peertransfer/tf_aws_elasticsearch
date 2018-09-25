@@ -76,5 +76,10 @@ variable "tags" {
   default     = {}
 }
 
-# vim: set et fenc=utf-8 ff=unix ft=terraform sts=2 sw=2 ts=2 : 
+variable "adv_opt_multi_allow_explicit_index" {
+  description = "advanced_options rest.action.multi.allow_explicit_index property"
+  default = 0
+}
+
+# vim: set et fenc=utf-8 ff=unix ft=terraform sts=2 sw=2 ts=2 :
 
